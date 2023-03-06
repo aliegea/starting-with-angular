@@ -30,7 +30,7 @@ const GAMES = [
   {
       name: 'Legend of Zelda',
       dateRelease: '21 February 1986',
-      imageUrl: 'http://www.hobbyconsolas.com/sites/hobbyconsolas.com/public/styles/main_element/public/media/image/2013/06/227201-analisis-legend-zelda-oracle-ages/seasons.jpg?itok=A8pOGd_f',
+      imageUrl: 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/hc_1440x810/public/media/image/2013/08/240816-imagenes-legend-zelda-wind-waker-hd.jpg?itok=xuSpFkNx',
       sellers: [
           {
               id: 3,
@@ -51,7 +51,7 @@ const GAMES = [
   {
       name: 'Sonic',
       dateRelease: '26 June 1981',
-      imageUrl: 'https://www-sonicthehedgehog-com-content.s3.amazonaws.com/test/Sonic_Mania_Block_3_video_1_2.jpg',
+      imageUrl: 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/hc_1440x810/public/media/image/2022/01/sonic-frontiers-2575919.jpg?itok=nFdnF0tE',
   },
 ];
 
