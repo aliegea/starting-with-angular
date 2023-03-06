@@ -1,29 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl, FormBuilder, ValidationErrors } from '@angular/forms';
 import { SellerCategoryService } from '../services/seller-category.service';
-import { ISellerCategory, ITax } from '../models';
+
 import { CanDeactivateForm } from '../guards/can-Deactivate.guard';
 
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { IRegionCategory } from '../models/regionCategory.model';
+import { ILoopTax } from '../models/loop-tax.model';
+import { ISellerCategory } from '../models/seller-category.model';
+import { ITax } from '../models';
 
-interface Lookup {
-  id: number;
-  name: string;
-}
+// interface Lookup {
+//   id: number;
+//   name: string;
+// }
 
-const mapLookup = (obj: any) => ({
-  id: obj.id,
-  name: obj.name,
-});
+// const mapLookup = (obj: any) => ({
+//   id: obj.id,
+//   name: obj.name,
+// });
 
-const nameValid = (control: AbstractControl): { [key: string]: any } | null => {
+const nameValid = (control: AbstractControl): ValidationErrors | null => {
   const firstLetter = control.value.toString()[0];
-  console.log(!!firstLetter && firstLetter !== firstLetter.toUpperCase());
+ if( !!firstLetter && firstLetter !== firstLetter.toUpperCase()){
+  return { nameValid: 'invalid name' }
+ }
 
-  return !!firstLetter && firstLetter !== firstLetter.toUpperCase()
-    ? { nameValid: 'invalid name' }
-    : null;
+    return null;
 };
 
 @Component({
@@ -35,24 +39,22 @@ const nameValid = (control: AbstractControl): { [key: string]: any } | null => {
         color: #e05c65;
         padding-left: 10px;
       }
-      .error {
-        background-color: #e3c3c5;
-      }
-      .error input,
-      .error select,
-      .error textarea {
+
+      input.error,
+      select.error,
+      textarea.error {
         background-color: #e3c3c5;
       }
       .error+select {
         background-color: #e3c3c5;
       }
-      .error :: -webkit-input-placeholder {
+      :: -webkit-input-placeholder {
         color: #999;
       }
-      .error :: -moz-placeholder {
+      :: -moz-placeholder {
         color: #999;
       }
-      .error :: -ms-input-placeholder {
+      :: -ms-input-placeholder {
         color: #999;
       }
     `,
@@ -62,64 +64,83 @@ const nameValid = (control: AbstractControl): { [key: string]: any } | null => {
   ]
 })
 export class CreateSellerComponent implements OnInit,  CanDeactivateForm{
-  categoryLookupCollection: Array<Lookup> = [];
-  categoryTaxes: Array<{ categoryId: number; taxes: ITax[] }> = [];
-  taxLookupCollection: Array<Lookup> = [];
-  newSellerForm!: FormGroup;
-  category!: FormControl;
-  tax!: FormControl;
-  name!: FormControl;
+  categoryLookupCollection: Array<IRegionCategory> = [];
+  taxesLoopCollection:ILoopTax[]|undefined;
+
+  categories:ISellerCategory[]=[];
+
+  selctedTax!:string;
+  categorId!:string;
+
+TaxesSelected:ITax[]|undefined=[]
+newSellerForm!:FormGroup;
+
+  mouseover:boolean=false
   isDirty:boolean=true
 
-  constructor(private sellerCategoryService: SellerCategoryService, private route:Router) {}
+   get category(){
+    return this.newSellerForm.get('category')
+   }
+   get taxes(){
+    return this.newSellerForm.get('taxes')
+   }
+   get name(){
+    return this.newSellerForm.get('name')
+   }
+get remarks(){
+  return this.newSellerForm.get('remarks')
+}
 
-  onChangeCategory(event: any) {
-    const selectedCategoryId = event.target.value;
-    if (selectedCategoryId) {
-      const { taxes } = this.categoryTaxes.find(
-        (ct) => ct.categoryId === +selectedCategoryId
-      ) as { categoryId: number; taxes: ITax[] };
-      this.taxLookupCollection = taxes.map(mapLookup);
-      this.tax.enable();
-    } else {
-      this.tax.disable();
-      this.tax.setValue('');
-    }
+  constructor(private sellerCategoryService: SellerCategoryService, private route:Router, private fb:FormBuilder) {}
+
+  onChangeCategory(event: Event) {
+    const selectedEl= event.target as HTMLSelectElement;
+    this.categorId=selectedEl.value
+    if (this.categorId) {
+this.newSellerForm.controls['taxes'].enable()
+this.TaxesSelected=this.checktaxes(this.categories, +this.categorId)
+this.taxesLoopCollection=this.TaxesSelected?.map((tax:ITax)=>({
+  id:tax.id,
+  name:tax.name
+}))
   }
-
-  saveSeller(formValues: any) {
-    console.log(formValues);
+  else{
+    this.newSellerForm.controls['taxes'].disable()
+    this.taxesLoopCollection=[]
+  }
+}
+private checktaxes(categories:ISellerCategory[],id:number){
+  return categories.find((cat:ISellerCategory)=>cat.id===id)?.taxes
+}
+  saveSeller() {
+    this.isDirty=false
+    console.log(this.newSellerForm.value);
   }
 
   ngOnInit(): void {
     const categories = this.sellerCategoryService.getSellerCategories();
     this.populateCategoryLookupCollection(categories);
-    this.populateCategoryTaxes(categories);
+
     this.initForm();
   }
 
   private initForm() {
-    this.category = new FormControl('', Validators.required);
-    this.tax = new FormControl('', Validators.required);
-    this.name = new FormControl('', [Validators.required, nameValid])
-    this.newSellerForm = new FormGroup({
-      category: this.category,
-      tax: this.tax,
-      name: this.name
-    });
-    this.tax.disable();
+   this.newSellerForm=this.fb.group({
+    category:['',[Validators.required]],
+    taxes:['',[Validators.required]],
+    name:['',[Validators.required,nameValid,Validators.maxLength(30)]],
+    remarks:['',[Validators.maxLength(100)]]
+   })
+
   }
 
-  private populateCategoryLookupCollection(
-    categories: ISellerCategory[]
-  ): void {
-    this.categoryLookupCollection = categories.map(mapLookup);
-  }
 
-  private populateCategoryTaxes(categories: ISellerCategory[]): void {
-    this.categoryTaxes = categories.map((c) => ({
-      categoryId: c.id,
-      taxes: [...c.taxes],
+
+
+  private populateCategoryLookupCollection(categories: ISellerCategory[]): void {
+    this.categoryLookupCollection = categories.map((c:IRegionCategory) => ({
+      id:c.id,
+      name:c.name
     }));
   }
 

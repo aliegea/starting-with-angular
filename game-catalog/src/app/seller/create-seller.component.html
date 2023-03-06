@@ -1,27 +1,35 @@
-<div class="row">
+<div class="container">
+  <div class="row">
   <div class="col">
     <h3>Create Seller</h3>
   </div>
 </div>
-<div class="row">
+<div class="row centerDiv">
   <div class="col-6">
-    <form [formGroup]="newSellerForm" (ngSubmit)="saveSeller(newSellerForm)">
+    <form [formGroup]="newSellerForm" (ngSubmit)="saveSeller()">
       <div class="form-group">
         <label for="name">Name:</label>
-        <em *ngIf="name.valid && name.dirty && name?.errors?.['nameValid']"
+        <em *ngIf="name?.dirty  && name?.errors?.['nameValid'] || mouseover"
           >Not start by capital</em
         >
+        <em *ngIf="name?.touched  && name?.errors?.['required'] || mouseover"
+          >This field is required</em
+        >
+        <em *ngIf="name?.errors?.['maxlength']"
+        >Please write less than 30 characters</em
+      >
         <input type="text" formControlName="name" class="form-control" />
       </div>
 
       <div class="form-group">
         <label for="sellercategory">Category</label>
-        <em *ngIf="category.invalid && category.dirty" [ngClass]="{'error': category.invalid && category.dirty}" class="float-right">
+        <em *ngIf="(category?.invalid && category?.touched)||mouseover"  >
           Required
         </em>
         <select
           formControlName="category"
           class="form-control"
+          [ngClass]="category?.invalid && category?.touched?'error': '' "
           (change)="onChangeCategory($event)"
         >
           <option value="">select category...</option>
@@ -34,34 +42,37 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="tax">Tax</label>
+        <label for="taxes">Tax</label>
         <em
-          *ngIf="tax.invalid && tax.dirty"
-          [ngClass]="{ 'tax.invalid && tax.dirty': '.error' }"
-          class="float-right"
+          *ngIf="taxes?.invalid && taxes?.touched||mouseover"
         >
           Required
         </em>
-        <select formControlName="tax" class="form-control">
+        <select formControlName="taxes" class="form-control" [ngClass]="category?.invalid && category?.touched?'error': '' ">
           <option value="">select tax...</option>
           <option
-            [value]="taxLookup.id"
-            *ngFor="let taxLookup of taxLookupCollection"
+            [value]="tax.id"
+            *ngFor="let tax of taxesLoopCollection"
           >
-            {{ taxLookup.name }}
+            {{ tax.name }}
           </option>
         </select>
       </div>
       <div class="form-group">
         <label for="remarks">Remarks:</label>
+        <em *ngIf="remarks?.errors?.['maxlength']||mouseover">Please write less than 100 characters</em>
         <textarea
           rows="3"
           class="form-control"
           placeholder="remarks..."
+          formControlName="remarks"
         ></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Save</button>
+      <span (mouseenter)="mouseover=true" (mouseleave)="mouseover=false">
+      <button type="submit" class="btn btn-prime m-1" [disabled]="newSellerForm.invalid">Save</button>
+    </span>
       <button (click)="cancel()" class="btn btn-cancel m-1">Cancel</button>
     </form>
   </div>
+</div>
 </div>
