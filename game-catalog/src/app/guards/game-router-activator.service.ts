@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
-import { GameStockService } from './game-stock.service';
+import { GameStockService } from '../services/game-stock.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ import { GameStockService } from './game-stock.service';
 export class GameRouterActivatorService implements CanActivate {
 
   constructor(private gameStockService: GameStockService, private router: Router) { }
-  
+
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const gameExists = !!this.gameStockService.getGame(route.params['id']);
 

@@ -21,7 +21,7 @@ import { ErrorComponent } from './error.component';
 import {
   checkDirtyState,
   CHECK_DIRTY_TOKEN,
-} from './services/check-dirty.service';
+} from './guards/check-dirty.service';
 import { MaterialModule } from './shared/material.module';
 import { SellerListComponent } from './seller/seller-list.component';
 import { HttpClientModule } from '@angular/common/http';

@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { SellerCategoryService } from '../services/seller-category.service';
 import { ISellerCategory, ITax } from '../models';
+import { CanDeactivateForm } from '../guards/can-Deactivate.guard';
+
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 interface Lookup {
   id: number;
@@ -57,7 +61,7 @@ const nameValid = (control: AbstractControl): { [key: string]: any } | null => {
 
   ]
 })
-export class CreateSellerComponent implements OnInit {
+export class CreateSellerComponent implements OnInit,  CanDeactivateForm{
   categoryLookupCollection: Array<Lookup> = [];
   categoryTaxes: Array<{ categoryId: number; taxes: ITax[] }> = [];
   taxLookupCollection: Array<Lookup> = [];
@@ -65,8 +69,9 @@ export class CreateSellerComponent implements OnInit {
   category!: FormControl;
   tax!: FormControl;
   name!: FormControl;
+  isDirty:boolean=true
 
-  constructor(private sellerCategoryService: SellerCategoryService) {}
+  constructor(private sellerCategoryService: SellerCategoryService, private route:Router) {}
 
   onChangeCategory(event: any) {
     const selectedCategoryId = event.target.value;
@@ -116,5 +121,15 @@ export class CreateSellerComponent implements OnInit {
       categoryId: c.id,
       taxes: [...c.taxes],
     }));
+  }
+
+  canDeactivate():Observable<boolean>|boolean{
+    if(this.isDirty){
+      return confirm('You have unsaved changes.Are you sure you want to leave this page.You will loose unsaved changes')
+    }
+    return true;
+  }
+  cancel(){
+    this.route.navigate(['/games'])
   }
 }
