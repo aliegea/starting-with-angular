@@ -1,4 +1,4 @@
 <app-seller-details
-  *ngFor="let seller of visibleSellers"
+  *ngFor="let seller of visibleSellers |sortAsc:sortAsc"
   [seller]="seller"
 ></app-seller-details>

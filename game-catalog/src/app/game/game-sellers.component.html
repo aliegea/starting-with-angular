@@ -11,20 +11,20 @@
 
     <div class="filters">
      <span>Sort by:</span>
-        <button class="btn btn-filter" [class.active]="sortAsc" (click)="toggleSort()">Higher price</button>
-        <button class="btn btn-filter" [class.active]="!sortAsc" (click)="toggleSort()" >Lower price</button>
+        <button class="btn btn-filter" [class.active]="sortAsc" (click)="toggleSort(true)">Higher price</button>
+        <button class="btn btn-filter" [class.active]="!sortAsc" (click)="toggleSort(false)" >Lower price</button>
 </div>
 <div class="filters">
         <span>Filter by:</span>
-        <button class="btn btn-filter" [class.active]="filterAll" (click)=toggleFilter()>All</button>
-        <button class="btn btn-filter" [class.active]="!filterAll" (click)=toggleFilter()>Available stock</button>
+        <button class="btn btn-filter" [class.active]="filterAll" (click)=toggleFilter(true)>All</button>
+        <button class="btn btn-filter" [class.active]="!filterAll" (click)=toggleFilter(false)>Available stock</button>
       </div>
     </div>
     <app-seller-list class="row p-4" [sortAsc]="sortAsc" [filterAll]="filterAll" [sellers]="sellers"></app-seller-list>
   </div>
 
 
- <div *ngIf="!sellers.length">
+ <div *ngIf>
   <h6>{{noSellerMsg}}</h6>
  </div>
 

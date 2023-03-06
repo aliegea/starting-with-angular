@@ -10,20 +10,20 @@
       <div class="form-group">
         <label for="name">Name:</label>
         <em *ngIf="name?.dirty  && name?.errors?.['nameValid'] || mouseover"
-          >Not start by capital</em
+        class="float-right"  >Not start by capital</em
         >
         <em *ngIf="name?.touched  && name?.errors?.['required'] || mouseover"
-          >This field is required</em
+        class="float-right" >This field is required</em
         >
         <em *ngIf="name?.errors?.['maxlength']"
-        >Please write less than 30 characters</em
+        class="float-right">Please write less than 30 characters</em
       >
         <input type="text" formControlName="name" class="form-control" />
       </div>
 
       <div class="form-group">
         <label for="sellercategory">Category</label>
-        <em *ngIf="(category?.invalid && category?.touched)||mouseover"  >
+        <em *ngIf="(category?.invalid && category?.touched)||mouseover"  class="float-right" >
           Required
         </em>
         <select
@@ -45,7 +45,7 @@
         <label for="taxes">Tax</label>
         <em
           *ngIf="taxes?.invalid && taxes?.touched||mouseover"
-        >
+          class="float-right" >
           Required
         </em>
         <select formControlName="taxes" class="form-control" [ngClass]="category?.invalid && category?.touched?'error': '' ">
@@ -60,7 +60,7 @@
       </div>
       <div class="form-group">
         <label for="remarks">Remarks:</label>
-        <em *ngIf="remarks?.errors?.['maxlength']||mouseover">Please write less than 100 characters</em>
+        <em *ngIf="remarks?.errors?.['maxlength']||mouseover"  class="float-right">Please write less than 100 characters</em>
         <textarea
           rows="3"
           class="form-control"

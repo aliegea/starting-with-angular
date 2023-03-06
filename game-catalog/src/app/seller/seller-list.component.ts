@@ -8,18 +8,31 @@ import { ISeller } from '../models';
 })
 export class SellerListComponent implements OnChanges {
   @Input() sellers: ISeller[] = [];
-  @Input() filterAll!:boolean
+  @Input() filterAll!:boolean;
   @Input() sortAsc! :boolean;
   visibleSellers: ISeller[] = [];
 
-  ngOnChanges(changes: SimpleChanges): void {
-   if(!this.filterAll){
-    this.visibleSellers=this.sellers.filter((seller)=>seller.isAvailable)
-   }else{this.visibleSellers=this.sellers}
+  ngOnInit(): void {
+    if (this.filterAll) {
+      // Show all sellers
+      this.visibleSellers = this.sellers;
+    } else {
+      // Show sellers with available stock
+      this.visibleSellers = this.sellers.filter((seller) => seller.isAvailable);
+    }
   }
 
-  private filterSellers = (filter: string) =>
-    this.sellers.filter((s) => filter === 'all' || s.amount > 0);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes?.['filterAll'] && !changes?.['filterAll'].firstChange) {
+      if (this.filterAll) {
+        // Show all sellers
+        this.visibleSellers = this.sellers;
+      } else {
+        // Show sellers with available stock
+        this.visibleSellers = this.sellers.filter((seller) => seller.isAvailable);
+      }
+    }
+  }}
 
   // private sortSellers = (sortBy: string): void => {
   //   this.visibleSellers.sort(this.sortSellersActions[sortBy]);
@@ -29,4 +42,4 @@ export class SellerListComponent implements OnChanges {
   //   ['asc']: (current: ISeller, after: ISeller) => after.price - current.price,
   //   ['desc']: (current: ISeller, after: ISeller) => current.price - after.price,
   // };
-}
+

@@ -1,6 +1,11 @@
-<div>
+<div class="container">
+  <div class="row">
+    <div class="col">
   <h3>Create Game</h3>
-  <form #createGameForm="ngForm" autocomplete="off" novalidate (ngSubmit)="createGame(createGameForm.value)">
+</div>
+</div>
+<div class="row centerDiv">
+  <form #createGameForm="ngForm" autocomplete="off" novalidate (ngSubmit)="createGame(createGameForm.value)" class="col-6">
     <div class="form-group">
       <label for="name"> Game Name: </label>
       <em
@@ -75,8 +80,9 @@
       />
     </div>
     <span (mouseenter)="mouseover=true" (mouseleave)="mouseover=false">
-        <button type="submit" [disabled]="createGameForm.invalid" class="btn btn-primary">Create</button>
-        <button type="reset" (click)="cancel()" class="btn btn-secondary">Cancel</button>
+        <button type="submit" [disabled]="createGameForm.invalid" class="btn btn-prime m-1">Create</button>
+        <button type="reset" (click)="cancel()" class="btn btn-cancel m-1">Cancel</button>
     </span>
   </form>
+</div>
 </div>

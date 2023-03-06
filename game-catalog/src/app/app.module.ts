@@ -25,40 +25,42 @@ import {
 import { MaterialModule } from './shared/material.module';
 import { SellerListComponent } from './seller/seller-list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PipesModule } from "./pipes/pipes.module";
 
 // ngModel
 // ngForm
 @NgModule({
-  declarations: [
-    AppComponent,
-    GameSummaryComponent,
-    GameSellersComponent,
-    CreateGameComponent,
-    GameListComponent,
-    CreateSellerComponent,
-    NavbarComponent,
-    SellerDetailsComponent,
-    ErrorComponent,
-    SellerListComponent,
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes),
-    UserModule,
-    MaterialModule,
-    BrowserAnimationsModule,
-    HttpClientModule
-  ],
-  providers: [
-    GameStockService,
-    SellerCategoryService,
-    {
-      provide: CHECK_DIRTY_TOKEN,
-      useValue: checkDirtyState,
-    },
-  ],
-  bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+        GameSummaryComponent,
+        GameSellersComponent,
+        CreateGameComponent,
+        GameListComponent,
+        CreateSellerComponent,
+        NavbarComponent,
+        SellerDetailsComponent,
+        ErrorComponent,
+        SellerListComponent,
+    ],
+    providers: [
+        GameStockService,
+        SellerCategoryService,
+        {
+            provide: CHECK_DIRTY_TOKEN,
+            useValue: checkDirtyState,
+        },
+    ],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule.forRoot(appRoutes),
+        UserModule,
+        MaterialModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        PipesModule
+    ]
 })
 export class AppModule {}

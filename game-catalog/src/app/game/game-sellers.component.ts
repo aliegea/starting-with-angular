@@ -25,13 +25,13 @@ noSellerMsg:string='There are no sellers...';
 
   toggleAddMode() {
     this.addMode = !this.addMode;
-    this.route.navigate(['sellers/new'])
+    this.route.navigate(['seller/new'])
   }
-  toggleFilter(){
-    this.filterAll=!this.filterAll
+  toggleFilter(filterAll:boolean){
+    this.filterAll=filterAll
   }
-  toggleSort(){
-    this.sortAsc=!this.sortAsc
+  toggleSort(sortAsc:boolean){
+    this.sortAsc=sortAsc
   }
 
   ngOnInit(): void {
