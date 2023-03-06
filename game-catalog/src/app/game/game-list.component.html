@@ -1,9 +1,16 @@
 <div class="container">
-  <h1>
+  <h2>
     {{ title }}
-  </h1>
-  <div class="games-container">
-    <div *ngFor="let game of games" [routerLink]="['/games', game.name]">
+  </h2>
+  <div class="row pb-4">
+    <div class="col">
+      <button (click)="show=!show"  class="btn">Toogle showgames</button>
+    </div>
+  </div>
+
+  <div class="games-container" *ngIf="show">
+    <div class="row">
+    <div class="col-4" *ngFor="let game of games" [routerLink]="['/games', game.name]">
       <app-game-summary
         [game]="game"
       ></app-game-summary>
@@ -13,4 +20,5 @@
     [gameName]="selectedGameName"
     [sellers]="sellers"
   ></app-game-sellers> -->
+</div>
 </div>

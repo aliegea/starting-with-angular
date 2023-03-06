@@ -1,0 +1,13 @@
+nav{
+  background-color: var(--background);
+}
+li a{
+  color:var(--blueTitle)
+}
+li a:hover,li a.active{
+  color:var(--blueTitle);
+  font-weight:bold;
+}
+.login{
+  margin-left: auto;
+}

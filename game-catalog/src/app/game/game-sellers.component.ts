@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Game } from '../models';
 import { ISeller } from '../models/seller.model';
 import { GameStockService } from '../services/game-stock.service';
@@ -7,28 +7,38 @@ import { GameStockService } from '../services/game-stock.service';
 @Component({
   selector: 'app-game-sellers',
   templateUrl: './game-sellers.component.html',
+  styleUrls:['./game-sellers.component.css']
 })
 export class GameSellersComponent implements OnInit {
   sellers: ISeller[] = [];
-  gamName = '';
+  gameName! :string;
   addMode = false;
-  sortBy = 'asc'; 
-  filterBy = 'all';
+  sortAsc:boolean = true;
+  filterAll:boolean = true;
 
+noSellerMsg:string='There are no sellers...';
   constructor(
-    private route: ActivatedRoute,
-    private gameStockService: GameStockService
+    private activateRoute: ActivatedRoute,
+    private gameStockService: GameStockService,
+    private route:Router
   ) {}
 
-  toggleAddSeller() {
+  toggleAddMode() {
     this.addMode = !this.addMode;
+    this.route.navigate(['sellers/new'])
+  }
+  toggleFilter(){
+    this.filterAll=!this.filterAll
+  }
+  toggleSort(){
+    this.sortAsc=!this.sortAsc
   }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.params['id'];
+    const id = this.activateRoute.snapshot.params['id'];
     this.gameStockService.getGame(id).subscribe({
       next: (g) => {
-        this.gamName = g.name;
+        this.gameName = g.name;
         this.sellers = g.sellers || [];
       }
     });

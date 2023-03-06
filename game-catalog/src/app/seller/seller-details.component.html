@@ -1,6 +1,8 @@
-<div class="card card-block bg-faded">
+<div class="card card-block bg-faded p-4 m-2">
   <h4>{{ seller.name }}</h4>
   <span>Available amount: {{ seller.amount }}</span>
   <span>Unit price: {{ seller.price | currency:'EUR' }}</span>
+  <div class="icons">
   <i [class]="seller.amount | available:'foo'" aria-hidden="true"></i>
+</div>
 </div>

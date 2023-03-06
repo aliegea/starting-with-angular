@@ -1,14 +1,74 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/bootstrap/dist/css/bootstrap.css';
 @import '../node_modules/font-awesome/css/font-awesome.css';
+@import "assets/pallette.css";
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Open+Sans&display=swap');
 
-body {
-    padding: 0.5em; /* rem vs em */
-}
-
-label {
-    padding: 0.5rem;
-}
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+    padding: 0.5em; /* rem vs em */
+    margin:0;
+    font-family: "Open Sans", sans-serif;
+}
+h1,h2,h3,h4{
+  text-align:center;
+  padding:15px;
+  margin:0;
+  font-family: 'Comfortaa', cursive;
+  color: var(--blueTitle)
+}
+.centerDiv{
+display:flex;
+justify-content: center;}
+
+.fa-check{
+  color:var(--white);
+  background-color:var(--green);
+  border-radius: 50%;
+  padding:5px;
+}
+.fa-times{
+  color:var(--white);
+  background-color:var(--red);
+  border-radius: 10%;
+  padding:5px 8px;
+}
+
+.btn:hover{
+  transform: translateY(-2px);
+  transition: all 0.8s easy-out;
+}
+.btn-prime{
+  background-color: var(--blueTitle);
+  border:2px solid var(--blueTitle);
+  border-radius: 5px;
+  color:var(--white)
+}
+.btn-prime:hover{
+  background-color: var(--white);
+  border:2px solid var(--blueTitle);
+  color:var(--blueTitle)
+}
+.btn-outline-prime{
+  background-color: var(--white);
+  border:2px solid var(--blueTitle);
+  border-radius: 5px;
+  color:var(--blueTitle)
+}
+.btn-outline-prime:hover{
+  background-color: var(--blueTitle);
+  border:2px solid var(--blueTitle);
+  border-radius: 5px;
+  color:var(--white)
+}
+.btn-cancel{
+  background-color: var(--cancelgrey);
+  border:2px solid var(--cancelgrey);
+  border-radius: 5px;
+  color:var(--white)
+}
+.btn-cancel:hover{
+  color:var(--white)
+}
+

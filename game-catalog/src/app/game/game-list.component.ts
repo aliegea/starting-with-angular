@@ -12,10 +12,11 @@ import { GameStockService } from '../services/game-stock.service';
 export class GameListComponent implements OnInit, OnDestroy {
   title = 'Game Catalog';
   games!: Game[];
+  show=true;
   gamesSubscription!: Subscription;
 
   constructor(private gameService: GameStockService) {}
-  
+
   ngOnInit(): void {
     this.loadGames();
   }
