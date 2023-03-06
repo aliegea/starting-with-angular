@@ -13,6 +13,7 @@
     <div class="col-4" *ngFor="let game of games" [routerLink]="['/games', game.name]">
       <app-game-summary
         [game]="game"
+
       ></app-game-summary>
     </div>
   </div>

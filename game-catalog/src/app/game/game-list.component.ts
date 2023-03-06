@@ -32,4 +32,5 @@ export class GameListComponent implements OnInit, OnDestroy {
       }
     });
   }
+
 }

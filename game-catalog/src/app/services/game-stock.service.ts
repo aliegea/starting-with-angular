@@ -33,7 +33,7 @@ export class GameStockService {
 
     return new Game(gameServer.name, gameServer.dateRelease, gameServer.imageUrl, []);
   }
-    
+
 
   getGame(name: string): Observable<Game> {
     return this.getGames().pipe(
@@ -75,12 +75,13 @@ export class GameStockService {
     );
   }
 
-  deleteGame(name: string): Observable<Game> {
+  deleteGame(gameId: string): Observable<Game> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.delete<Game>('', { headers }).pipe(
+    return this.http.delete<Game>(`/api/games/${gameId}`, { headers }).pipe(
       tap(() => {
-        this.games = this.games.filter((g) => g.name !== name);
+        this.games = this.games.filter((g) => g.name !== gameId);
       })
     );
   }
 }
+

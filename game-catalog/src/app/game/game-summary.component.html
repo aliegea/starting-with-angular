@@ -1,4 +1,4 @@
-<div class="card card-block bg-faded" (click)="selectedGame(game.name)">
+<div class="card card-block bg-faded" >
   <div >
     <img class="img-fluid" [src]="game.imageUrl" style="min-height:260px; object-fit:cover" alt="game image" />
   </div>
@@ -7,7 +7,16 @@
       <p>{{ game.name }}</p>
       <label>Years from release:</label>
       <p>{{ game.getYearsFromRelease() }}</p>
+      <div >
+        <button (click)="selectedGame(game.name)"mat-raised-button color="primary" class="m-1">Go to Sellers
+
+        </button>
+        <button (click)="delete(game.name)" mat-raised-button color="warn" class="m-1">Delete
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </div>
+
 
   </div>
 

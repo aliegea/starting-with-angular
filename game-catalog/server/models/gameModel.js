@@ -43,16 +43,45 @@ const GAMES = [
               id: 4,
               name: 'New shop',
               price: 145,
-              amount: 1,
+              amount: 3,
               isAvailable: true,
           },
+          {
+            id: 6,
+            name: 'Other shop',
+            price: 140,
+            amount: 3,
+            isAvailable: true,
+        },
       ]
   },
   {
       name: 'Sonic',
       dateRelease: '26 June 1981',
       imageUrl: 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/hc_1440x810/public/media/image/2022/01/sonic-frontiers-2575919.jpg?itok=nFdnF0tE',
+      sellers: [
+        {
+            id: 3,
+            name: 'Old shop',
+            price: 125,
+            amount: 0,
+            isAvailable: false,
+        },
+        {
+            id: 4,
+            name: 'New shop',
+            price: 145,
+            amount: 1,
+            isAvailable: true,
+        },
+    ]
   },
+  {
+    name: 'Scars Above',
+    dateRelease: '26 June 1991',
+    imageUrl: 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/hc_1440x810/public/media/image/2023/03/scars-above-2971200.jpg?itok=jcMhqODb',
+
+},
 ];
 
 const getGames = () => GAMES;
