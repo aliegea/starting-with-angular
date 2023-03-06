@@ -25,7 +25,7 @@ noSellerMsg:string='There are no sellers...';
 
   toggleAddMode() {
     this.addMode = !this.addMode;
-    this.route.navigate(['seller/new'])
+    this.route.navigate(['sellers/new'])
   }
   toggleFilter(filterAll:boolean){
     this.filterAll=filterAll
