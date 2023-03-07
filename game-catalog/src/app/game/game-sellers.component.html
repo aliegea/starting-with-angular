@@ -16,8 +16,8 @@
 </div>
 <div class="filters">
         <span>Filter by:</span>
-        <button class="btn btn-filter" [class.active]="filterAll" (click)=toggleFilter(true)>All</button>
-        <button class="btn btn-filter" [class.active]="!filterAll" (click)=toggleFilter(false)>Available stock</button>
+        <button class="btn btn-filter" [class.active]="filterAll" (click)="toggleFilter(true)">All</button>
+        <button class="btn btn-filter" [class.active]="!filterAll" (click)="toggleFilter(false)">Available stock</button>
       </div>
     </div>
     <app-seller-list class="row p-4" [sortAsc]="sortAsc" [filterAll]="filterAll" [sellers]="sellers"></app-seller-list>

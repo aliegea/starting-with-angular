@@ -6,7 +6,7 @@ const routes = () => {
     userRouter.route('/')
         .get((req, res) => {
             if (User.isUserAuthenticated()) {
-                res.json(User.geUser());
+                res.json(User.getUser());
             } else {
                 res.status(403).send('forbidden');
             }
